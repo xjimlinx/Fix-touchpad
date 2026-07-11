@@ -12,7 +12,13 @@ hid-multitouch 内核驱动将 HTIX5288 错配为 `MT_CLS_NSMU`（仅带 `NOT_SE
 
 ## 修复
 
-一行改动：`MT_CLS_NSMU` → `MT_CLS_WIN_8`。详见 [FIX.md](FIX.md)。
+一行改动：`MT_CLS_NSMU` → `MT_CLS_WIN_8_FORCE_MULTI_INPUT_NSMU`（0x000a → 0x0018）。详见 [FIX.md](FIX.md)。
+
+2024 年 12 月的内核提交 [b5e65ae](https://github.com/torvalds/linux/commit/b5e65ae557da) 首次修复了同设备"抬指信号丢失"（NSMU），但遗漏了 `CONTACT_CNT_ACCURATE` 导致幽灵坐标污染。此补丁在其基础上补全。
+
+## 受影响硬件
+
+Chuwi Minibook, GPD Win Mini, T-bao Tbook Air, Cube Thinker, EZBook 3 Pro, Polaroid 1400, Mediacom FlexBook, 部分 Huawei 设备等。
 
 ## 安装
 

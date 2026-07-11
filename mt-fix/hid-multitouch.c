@@ -2568,10 +2568,16 @@ static const struct hid_device_id mt_devices[] = {
 		HID_DEVICE(HID_BUS_ANY, HID_GROUP_ANY, USB_VENDOR_ID_SIS_TOUCH,
 			HID_ANY_ID) },
 
-	/* Hantick HTIX5288: reclassify NSMU -> WIN_8 to get CONTACT_CNT_ACCURATE
-	 * and IGNORE_DUPLICATES, which prevent stale post-lift coordinates from
-	 * contaminating the remaining finger's slot (ghost-finger on 2FG scroll). */
-	{ .driver_data = MT_CLS_WIN_8,
+	/* Hantick HTIX5288: reclassify NSMU -> WIN_8_FORCE_MULTI_INPUT_NSMU.
+	 *
+	 * Original commit b5e65ae557da fixed stuck touches by switching from
+	 * ALWAYS_VALID to NOT_SEEN_MEANS_UP (MT_CLS_NSMU). However NSMU lacks
+	 * CONTACT_CNT_ACCURATE and IGNORE_DUPLICATES, causing stale post-lift
+	 * coordinates to contaminate remaining active slots after 2FG scroll.
+	 *
+	 * MT_CLS_WIN_8_FORCE_MULTI_INPUT_NSMU preserves NOT_SEEN_MEANS_UP
+	 * while adding the missing Win8 quirks. */
+	{ .driver_data = MT_CLS_WIN_8_FORCE_MULTI_INPUT_NSMU,
 		HID_DEVICE(BUS_I2C, HID_GROUP_MULTITOUCH_WIN_8,
 			   I2C_VENDOR_ID_HANTICK, I2C_PRODUCT_ID_HANTICK_5288) },
 
