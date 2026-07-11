@@ -1,0 +1,12 @@
+# 构建产物
+*.ko
+*.ko.zst
+*.o
+*.mod
+*.mod.c
+*.cmd
+.modules.order
+Module.symvers
+
+# 临时文件
+/tmp/
